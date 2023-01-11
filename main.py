@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget
+from os.path import expanduser
+from PyQt5.QtWidgets import QApplication, QLabel, QLineEdit, QPushButton, QVBoxLayout, QWidget, QFileDialog
 from bot import Bot
 
 class MyForm(QWidget):
@@ -32,12 +33,20 @@ class MyForm(QWidget):
         layout.addWidget(self.button)
         self.setLayout(layout)
         
+
+    def choose_directory(self):
+        print("Choose Location")
+        input_dir = QFileDialog.getExistingDirectory(None, 'Select a folder:', expanduser("~"))
+        return input_dir
+
     def submit(self):
+        dir = self.choose_directory()
         input1_data = self.input1.text()
         input2_data = self.input2.text()
+        file_path = dir + '/' + input2_data
         print(f'Input 1: {input1_data}\nInput 2: {input2_data}')
         self.label.setText('Running.....')
-        bot = Bot(input1_data, input2_data)
+        bot = Bot(input1_data, file_path)
         bot.run()
         self.label.setText('Done!')
 

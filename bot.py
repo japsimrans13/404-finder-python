@@ -31,13 +31,16 @@ class Bot():
     def run(self):
         initial_links = self.scrapLinks()
         for link in initial_links:
+            print(link.get('href'))
             status = self.checkStatusCode(link.get('href'))
             self.export_data.append([link.get('href'), status])
 
 
+        print('Exporting data to csv file....')
         with open(self.file_name, 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(self.export_data)
+        print('Done!')
 
 
 
