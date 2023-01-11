@@ -1,0 +1,1 @@
+This script finds all the current lins in the given url with the status code of the link present in them.
